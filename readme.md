@@ -15,6 +15,17 @@ tmp.xml  tmp.xml.json
 
 ```
 
+## install
+
+```
+go install github.com/xcd0/xml2json@latest
+```
+
+ビルド環境がない場合は https://github.com/Songmu/ghg を使えばgithubのリリースからとれる。
+```
+ghg get xcd0/xml2json
+```
+
 ## 注意
 
 メンテナンスされていないライブラリを使用している。
