@@ -118,6 +118,7 @@ func main() {
 	}
 }
 func Json2Xml() {
+	mxj.XMLEscapeChars(true)
 	m, err := mxj.NewMapJsonReader(os.Stdin)
 	if err != nil {
 		panic(errors.Errorf("%v", err))
@@ -127,6 +128,7 @@ func Json2Xml() {
 	}
 }
 func JsonFile2Xml(args *Args, path string) (string, error) {
+	mxj.XMLEscapeChars(true)
 	ms, err := mxj.NewMapsFromJsonFile(path)
 	if err != nil {
 		panic(errors.Errorf("%v", err))
@@ -141,6 +143,7 @@ func JsonFile2Xml(args *Args, path string) (string, error) {
 }
 
 func Xml2Json() {
+	mxj.XMLEscapeChars(true)
 	m, err := mxj.NewMapXmlReader(os.Stdin)
 	if err != nil {
 		panic(errors.Errorf("%v", err))
@@ -150,6 +153,7 @@ func Xml2Json() {
 	}
 }
 func XmlFile2Json(args *Args, path string) (string, error) {
+	mxj.XMLEscapeChars(true)
 	ms, err := mxj.NewMapsFromXmlFile(path)
 	if err != nil {
 		panic(errors.Errorf("%v", err))
