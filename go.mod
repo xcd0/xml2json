@@ -1,4 +1,4 @@
-module xml2json
+module github.com/xcd0/xml2json
 
 go 1.22.0
 
