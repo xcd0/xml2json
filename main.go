@@ -113,7 +113,6 @@ func main() {
 	}
 	for _, in := range args.Input {
 		str, err := XmlFile2Json(args, in)
-		//str, err := JsonFile2Xml(args, in)
 		if err != nil {
 			panic(errors.Errorf("%v", err))
 		}
@@ -121,30 +120,6 @@ func main() {
 			fmt.Println(str)
 		}
 	}
-}
-func Json2Xml() {
-	mxj.XMLEscapeChars(true)
-	m, err := mxj.NewMapJsonReader(os.Stdin)
-	if err != nil {
-		panic(errors.Errorf("%v", err))
-	}
-	if err := m.XmlIndentWriter(os.Stdout, "", "\t"); err != nil {
-		panic(errors.Errorf("%v", err))
-	}
-}
-func JsonFile2Xml(args *Args, path string) (string, error) {
-	mxj.XMLEscapeChars(true)
-	ms, err := mxj.NewMapsFromJsonFile(path)
-	if err != nil {
-		panic(errors.Errorf("%v", err))
-	}
-	out := replaceExt(path, ".json", ".xml")
-	log.Printf("%v -> %v", path, out)
-	os.RemoveAll(out)
-	if err := ms.XmlFileIndent(out, "", "\t"); err != nil {
-		panic(errors.Errorf("%v", err))
-	}
-	return "", nil
 }
 
 func Xml2Json() {
@@ -157,13 +132,14 @@ func Xml2Json() {
 		panic(errors.Errorf("%v", err))
 	}
 }
+
 func XmlFile2Json(args *Args, path string) (string, error) {
 	mxj.XMLEscapeChars(true)
 	ms, err := mxj.NewMapsFromXmlFile(path)
 	if err != nil {
 		panic(errors.Errorf("%v", err))
 	}
-	out := replaceExt(path, ".xml", ".json")
+	out := replaceExt(path, ".json")
 	log.Printf("%v -> %v", path, out)
 	os.RemoveAll(out)
 	if err := ms.JsonFileIndent(out, "", "\t"); err != nil {
@@ -309,9 +285,9 @@ func GetFileNameWithoutExt(path string) string {
 func GetFilePathWithoutExt(path string) string {
 	return filepath.ToSlash(filepath.Join(filepath.Dir(path), GetFileNameWithoutExt(path)))
 }
-func replaceExt(filePath, from, to string) string {
+func replaceExt(filePath, to string) string {
 	ext := filepath.Ext(filePath)
-	if len(from) > 0 && ext != from {
+	if len(from) > 0 {
 		return filePath
 	}
 	return filePath[:len(filePath)-len(ext)] + to
