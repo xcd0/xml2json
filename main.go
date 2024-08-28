@@ -287,7 +287,7 @@ func GetFilePathWithoutExt(path string) string {
 }
 func replaceExt(filePath, to string) string {
 	ext := filepath.Ext(filePath)
-	if len(from) > 0 {
+	if len(to) <= 0 {
 		return filePath
 	}
 	return filePath[:len(filePath)-len(ext)] + to
